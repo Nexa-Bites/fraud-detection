@@ -44,21 +44,34 @@ y = data['true_fraud']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
-model = IsolationForest(contamination=0.05, random_state=42)
-model.fit(X_train)
+# model = IsolationForest(contamination=0.05, random_state=42)
+# model.fit(X_train)
 
-X_test_filtered = X_test.drop(columns=['fraud_score'], errors='ignore')
+class FraudDetectionModel:
+    def __init__(self):
+        self.model = IsolationForest(contamination=0.05, random_state=42)
+        self.model.fit(X_train)
 
-X_test['fraud_score'] = model.decision_function(X_test_filtered)
+    def predict(self, features):
+        features = np.array(features).reshape(1, -1)
+        prediction = self.model.predict(features)
+        return "fraud" if prediction[0] == -1 else "normal"
 
-X_test['is_fraud'] = model.predict(X_test_filtered)
 
-X_test['is_fraud'] = X_test['is_fraud'].map({1: 0, -1: 1})
+fraud_detector = FraudDetectionModel()
 
-accuracy = accuracy_score(y_test, X_test['is_fraud'])
-conf_matrix = confusion_matrix(y_test, X_test['is_fraud'])
-class_report = classification_report(y_test, X_test['is_fraud'])
+# X_test_filtered = X_test.drop(columns=['fraud_score'], errors='ignore')
 
-print("Isolation Forest Accuracy:", accuracy)
-print("\nConfusion Matrix:\n", conf_matrix)
-print("\nClassification Report:\n", class_report)
+# X_test['fraud_score'] = model.decision_function(X_test_filtered)
+
+# X_test['is_fraud'] = model.predict(X_test_filtered)
+
+# X_test['is_fraud'] = X_test['is_fraud'].map({1: 0, -1: 1})
+
+# accuracy = accuracy_score(y_test, X_test['is_fraud'])
+# conf_matrix = confusion_matrix(y_test, X_test['is_fraud'])
+# class_report = classification_report(y_test, X_test['is_fraud'])
+
+# print("Isolation Forest Accuracy:", accuracy)
+# print("\nConfusion Matrix:\n", conf_matrix)
+# print("\nClassification Report:\n", class_report)
