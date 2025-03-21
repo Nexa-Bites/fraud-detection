@@ -35,8 +35,13 @@ async def websocket_endpoint(websocket: WebSocket):
             data = await websocket.receive_json()  # Receive data from Node.js
             print(f"📩 Received data: {data}")
             
+            if "features" not in data:
+                await websocket.send_json({"error": "Missing 'features' key in data"})
+                continue
+            
             prediction = fraud_detector.predict(data["features"])  # Use ML model
             await websocket.send_json({"prediction": prediction})  # Send prediction
+            print(f"📤 Sent response: {prediction}")
         except Exception as e:
             print(f"Websocket error: {e}")
             break
