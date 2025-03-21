@@ -14,16 +14,15 @@ app = FastAPI()
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
+
     await websocket.accept()
-    print("Client connected")
-    
-    await websocket.accept()
+    print("Client connected!")
     await websocket.send_json({"message": "WebSocket connected!"})
-    await websocket.close()
 
     while True:
         try:
             data = await websocket.receive_json()  # Receive data from Node.js
+            print(f"📩 Received data: {data}")
             prediction = fraud_detector.predict(data["features"])  # Use ML model
             await websocket.send_json({"prediction": prediction})  # Send prediction
         except Exception as e:
