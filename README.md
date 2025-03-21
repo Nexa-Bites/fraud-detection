@@ -1,6 +1,10 @@
 # Fraud Detection Model using Isolation Forest  
 This model implements fraud detection in the system. It uses the Isolation Forest algorithm to identify fraudulent activities based on user behavior. The model is trained on synthetic data generated using the faker library and can be used to predict fraud in new datasets.  
 
+<p align="center">
+  <img src="https://github.com/Nexa-Bites/trustid_front_and_backend/blob/main/WhatsApp%20Image%202025-03-20%20at%2013.23.22_3df22ccf.png?raw=true" alt="TrustID Logo" width="250">
+</p>
+
 ## Installation  
 Clone this repository and install dependencies:  
 
