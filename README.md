@@ -29,3 +29,6 @@ Number of failed verification attempts: num_failed_verifications
 Number of revoked credentials for a user: num_revocations
 Number of unique DIDs the user has : num_dids
 Number of times the user has changed their encryption keys: key_rotations
+
+# Client folder
+The client folder contains node js code. This simulates how the backend will fetch from the database and connect to the fastapi hosted online to get predictions and send them to a frontend.
