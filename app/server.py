@@ -41,6 +41,7 @@ async def websocket_endpoint(websocket: WebSocket):
             
             prediction = fraud_detector.predict(data["features"])  # Use ML model
             await websocket.send_json({"prediction": prediction})  # Send prediction
+            await websocket.send_json(prediction)
             print(f"📤 Sent response: {prediction}")
         except Exception as e:
             print(f"Websocket error: {e}")
