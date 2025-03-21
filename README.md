@@ -32,3 +32,7 @@ Number of times the user has changed their encryption keys: key_rotations
 
 # Client folder
 The client folder contains node js code. This simulates how the backend will fetch from the database and connect to the fastapi hosted online to get predictions and send them to a frontend.
+
+# https://fraud-detection-sc7s.onrender.com
+The api has been hosted on render.com and can be accessed using https://fraud-detection-sc7s.onrender.com 
+It is used with websockets on wss://fraud-detection-sc7s.onrender.com/ws
