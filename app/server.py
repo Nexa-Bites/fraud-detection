@@ -1,7 +1,18 @@
 from fastapi import FastAPI, WebSocket
 from app.fraud_detection import fraud_detector  # Import model from ml_model.py
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 #Data for the ML model to predict on
 # num_verifications (integer, 1 to 50)
@@ -23,10 +34,11 @@ async def websocket_endpoint(websocket: WebSocket):
         try:
             data = await websocket.receive_json()  # Receive data from Node.js
             print(f"📩 Received data: {data}")
+            
             prediction = fraud_detector.predict(data["features"])  # Use ML model
             await websocket.send_json({"prediction": prediction})  # Send prediction
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Websocket error: {e}")
             break
         
     print("Client disconnected")
