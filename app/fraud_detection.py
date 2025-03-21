@@ -47,6 +47,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 # model = IsolationForest(contamination=0.05, random_state=42)
 # model.fit(X_train)
 
+# num_verifications (integer, 1 to 50)
+# num_failed_verifications (integer, 0 to 10)
+# num_revocations (integer, 0 to 5)
+# num_dids (integer, 1 to 3)
+# key_rotations (integer, 0 to 5)
+
 class FraudDetectionModel:
     def __init__(self):
         self.model = IsolationForest(contamination=0.05, random_state=42)
@@ -59,6 +65,7 @@ class FraudDetectionModel:
 
 
 fraud_detector = FraudDetectionModel()
+
 
 # X_test_filtered = X_test.drop(columns=['fraud_score'], errors='ignore')
 
